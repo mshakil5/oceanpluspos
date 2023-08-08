@@ -19,11 +19,11 @@
     <style>
         @media print {
             @page {
-                margin: 100px auto; /* imprtant to logo margin */
+                margin: 10px auto; /* imprtant to logo margin */
             }
 
             html, body {
-                margin: 100 0 0 0;
+                margin: 0 0 0 0;
                 padding: 0
             }
 
@@ -47,7 +47,10 @@
     <section class="invoice">
         <div class="container-fluid p-0">
             <div class="invoice-body py-5">
-                <div style="  max-width: 1170px; margin: 70px auto;">
+                <div style="  max-width: 1170px; margin: 0px auto;">
+                    <div class="col-lg-2" style="flex: 2; text-align: center;">
+                        <img src="{{asset('header.svg')}}" alt="" style="height: 250px">
+                    </div>
                     @if ( $order->quotation == 1 )
                     <div class="col-lg-2" style="flex: 2; text-align: center;">
                         <h3 style="font-size: 1.5rem; margin-bottom: 5px;">QUOTATION</h3>
@@ -193,6 +196,8 @@
 
                                 </tr>
                             </thead>
+
+
                             <tbody>
 
 
@@ -208,7 +213,9 @@
                                 @endforeach
 
                             </tbody>
-                            <tfoot  style="border :1px solid #dee2e6 ; width: 100%; ">
+
+
+                            {{-- <tfoot  style="border :1px solid #dee2e6 ; width: 100%; ">
                                 <tr>
                                     <td colspan="3" rowspan="7" style="padding-left: 25px;">
                                       <b>  </i></b>
@@ -279,82 +286,166 @@
                                 </tr>
                                 @endif
 
+                            </tfoot> --}}
+                        </table>
+                    </div>
+
+
+                    <div  class="row overflow" style="position:fixed; bottom:140px; width:100%; " style="display: flex;">
+                        <table style="width: 100%;border-collapse: collapse;">
+
+                            <tfoot  style="border :1px solid #dee2e6 ; width: 100%; ">
+                                <tr>
+                                    <td colspan="3" rowspan="7" style="padding-left: 25px;">
+                                      <b>  </i></b>
+                                    </td>
+                                    <td colspan="2" style="border :1px solid #dee2e6; width:20%;">
+                                        <span class="float-start"><b>Total w/o discount:</b></span>
+                                    </td>
+                                    <td colspan="1" style="border :1px solid #dee2e6; text-align:right;width:15%;padding-right: 10px;">
+                                        <span class="float-end">{{ number_format($order->grand_total, 2) }}</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" style="border :1px solid #dee2e6 ;width:20%;">
+                                        <span class="float-start"><b>Discount:</b></span>
+                                    </td>
+                                    
+                                    <td colspan="1" style="border :1px solid #dee2e6; text-align:right;width:15%;padding-right: 10px;">
+                                        <span class="float-end">{{ number_format($order->discount_amount, 2) }}</span>
+                                    </td>
+                                </tr>
                                 
+                                <tr>
+                                    <td colspan="2" style="border :1px solid #dee2e6 ;">
+                                        <span class="float-start"><b>Vat:{{ $order->vatpercentage }}%</b></span>
+                                    </td>
+                                    
+                                    <td colspan="1" style="border :1px solid #dee2e6; text-align:right;width:15%;padding-right: 10px;">
+                                        <span class="float-end">{{ number_format($order->vatamount, 2) }}</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" style="border :1px solid #dee2e6 ;width:20%;">
+                                        <span class="float-start"> <b>Total with vat:</b> </span>
+                                    </td>
+                                    
+                                    <td colspan="1" style="border :1px solid #dee2e6; text-align:right;width:15%;padding-right: 10px;">
+                                        <span class="float-end">{{ number_format($order->net_total, 2) }}</span>
+                                    </td>
+                                </tr>
 
-
+                                @if ($order->sales_status == 1)
+                                <tr>
+                                    <td colspan="2" style="border :1px solid #dee2e6 ;width:20%;">
+                                        <span class="float-start"> <b>Customer paid:</b> </span>
+                                    </td>
+                                    
+                                    <td colspan="1" style="border :1px solid #dee2e6; text-align:right;width:15%;padding-right: 10px;">
+                                        <span class="float-end">{{ number_format($order->customer_paid, 2) }}</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" style="border :1px solid #dee2e6 ;width:20%;">
+                                        <span class="float-start"> <b>Due:</b> </span>
+                                    </td>
+                                    
+                                    <td colspan="1" style="border :1px solid #dee2e6; text-align:right;width:15%;padding-right: 10px;">
+                                        <span class="float-end">{{ number_format($order->due, 2) }}</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" style="border :1px solid #dee2e6 ;width:20%;">
+                                        <span class="float-start"> <b>Return Amount:</b> </span>
+                                    </td>
+                                    
+                                    <td colspan="1" style="border :1px solid #dee2e6; text-align:right;width:15%;padding-right: 10px;">
+                                        <span class="float-end">{{ number_format($order->return_amount, 2) }}</span>
+                                    </td>
+                                </tr>
+                                @endif
 
                             </tfoot>
                         </table>
                     </div>
-                    <br>
-                    <br>
-                    <div class="row my-5" style="display: flex;">
-
-
-                        @if ( $order->quotation == 1 )
-
-                            <table style="width: 100%;">
-                                <tr>
-                                    <td class="" style="border :0px solid #dee2e6 ;">
-                                        <div class="col-lg-5" style="flex: 2;">
-                                            <u>Terms and conditions </u><br>
-                                            <i>Validity : </i><br>
-                                            <i>Delivery : </i><br>
-                                            <i>Payment : </i><br>
-                                            <i>Other terms and conditions : </i>
-                                        </div>
-                                    </td>
-                                </tr>
-                            </table>
-
-                        @elseif ($order->delivery_note == 1)
-                            <table style="width: 100%;">
-                                <tr>
-                                    <td colspan="2" class="" style="border :0px solid #dee2e6 ;">
-                                        <div class="col-lg-5" style="flex: 2;">
-                                            <i>Received by : Signature & stamp</i>
-                                        </div>
-                                    </td>
-                                    <td colspan="2" class="" style="border :0px solid #dee2e6 ;">
-                                        <div class="col-lg-5" style="flex: 1;"></div>
-                                    </td>
-                                    <td colspan="2" class="" style="border :0px solid #dee2e6 ;">
-                                        <div class="col-lg-2 text-end" style="flex: 2; text-align: right;">
-                                            <span for="" style="padding-right: 30px">{{\App\Models\User::where('id', $order->created_by)->first()->name}}</span><br>
-                                            Salesman Signature
-                                        </div>
-                                    </td>
-                                </tr>
-                            </table>
-                        @else
-                            <table style="width: 100%;">
-                                <tr>
-                                    <td colspan="2" class="" style="border :0px solid #dee2e6 ;">
-                                        <div class="col-lg-5" style="flex: 2;">
-                                            <i>Received by : Signature & stamp</i>
-                                        </div>
-                                    </td>
-                                    <td colspan="2" class="" style="border :0px solid #dee2e6 ;">
-                                        <div class="col-lg-5" style="flex: 1;"></div>
-                                    </td>
-                                    <td colspan="2" class="" style="border :0px solid #dee2e6 ;">
-                                        <div class="col-lg-2 text-end" style="flex: 2; text-align: right;">
-                                            <span for="" style="padding-right: 30px">{{\App\Models\User::where('id', $order->created_by)->first()->name}}</span><br>
-                                            Salesman Signature
-                                        </div>
-                                    </td>
-                                </tr>
-                            </table>
-                        @endif
-
-                        
-
-                    </div>
+                    
                 </div>
             </div>
-            {{-- <div  style="margin-top: 15px; display: flex;align-items: center;justify-content: center;background-color: #FF9A38;">
-                <h4 class="mb-0 text-white" style="color: white; text-align: center;">Musaffa M-9 Abudhabi UAE</h4>
-            </div> --}}
+        </div>
+
+
+        
+        <div class="container">
+
+            
+            <div class="row overflow mb-5" style="position:fixed; bottom:10px; width:100%; " style="display: flex;">
+
+
+                @if ( $order->quotation == 1 )
+
+                    <table style="width: 100%;">
+                        <tr>
+                            <td class="" style="border :0px solid #dee2e6 ;">
+                                <div class="col-lg-5" style="flex: 2;">
+                                    <u>Terms and conditions </u><br>
+                                    <i>Validity : </i><br>
+                                    <i>Delivery : </i><br>
+                                    <i>Payment : </i><br>
+                                    <i>Other terms and conditions : </i>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+
+                @elseif ($order->delivery_note == 1)
+                    <table style="width: 100%;">
+                        <tr>
+                            <td colspan="2" class="" style="border :0px solid #dee2e6 ;">
+                                <div class="col-lg-5" style="flex: 2;">
+                                    <i>Received by : Signature & stamp</i>
+                                </div>
+                            </td>
+                            <td colspan="2" class="" style="border :0px solid #dee2e6 ;">
+                                <div class="col-lg-5" style="flex: 1;"></div>
+                            </td>
+                            <td colspan="2" class="" style="border :0px solid #dee2e6 ;">
+                                <div class="col-lg-2 text-end" style="flex: 2; text-align: right;">
+                                    <span for="" style="padding-right: 30px">{{\App\Models\User::where('id', $order->created_by)->first()->name}}</span><br>
+                                    Salesman Signature
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                @else
+                    <table style="width: 100%;">
+                        <tr>
+                            <td colspan="2" class="" style="border :0px solid #dee2e6 ;">
+                                <div class="col-lg-5" style="flex: 2;">
+                                    <i>Received by : Signature & stamp</i>
+                                </div>
+                            </td>
+                            <td colspan="2" class="" style="border :0px solid #dee2e6 ;">
+                                <div class="col-lg-5" style="flex: 1;"></div>
+                            </td>
+                            <td colspan="2" class="" style="border :0px solid #dee2e6 ;">
+                                <div class="col-lg-2 text-end" style="flex: 2; text-align: right;">
+                                    <span for="" style="padding-right: 30px">{{\App\Models\User::where('id', $order->created_by)->first()->name}}</span><br>
+                                    Salesman Signature
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                @endif
+
+                <div  style="background-color: #999796;">
+                    <p class="mb-5 p-2 text-white" style="color: white; text-align: justify;padding:3px">
+                        Oxygen Gas - Acetylene - Nitrogen Gas - Compressed-Air-Carbon Dioxide/Dry Ice - Hydrogen Helium - Nitrous Oxide - Gas Mixture - LPG -50/25 lbs - Freon 11, 12, 22, 134A 404, 500 - Propane - 100lbs.
+                    </p>
+                </div>
+
+            </div>
+
+            
         </div>
     </section>
 

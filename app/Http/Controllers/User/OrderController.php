@@ -957,7 +957,7 @@ class OrderController extends Controller
 
                     $btn .= '<a href="https://www.ezpos.tech/invoice/customer/'.$invoice->id.'" class="btn btn-sm btn-theme ms-1"><span title="Download Invoice">Download</span></a>';
 
-                    $btn .= '<a href="https://www.ezpos.tech/invoice/print/'.$invoice->id.'" class="btn btn-sm btn-theme ms-1 print-window"><span title="Print Invoice">Print</span></a>';
+                    $btn .= '<a href="https://www.localhost/laravel/oceanpluspos/invoice/print/'.$invoice->id.'" class="btn btn-sm btn-theme ms-1 print-window"><span title="Print Invoice">Print</span></a>';
 
                     $btn .= '<a href="#" class="btn btn-sm btn-theme ms-1 viewThis" data-bs-toggle="modal" data-bs-target="#view" oid="'.$invoice->id.'" id="viewThis">View</a>';
 
